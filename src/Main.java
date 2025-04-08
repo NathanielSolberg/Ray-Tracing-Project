@@ -10,7 +10,7 @@ public class Main {
         //
         PNGImageData image = new PNGImageData(800, 500);
 
-        Camera camera = new Camera();
+        Perspective camera = new Perspective();
 
         float aspectRatio = image.getImageWidth() / (float) image.getImageHeight();
 
@@ -96,7 +96,6 @@ public class Main {
                 float ray_t = 0.0f;
 
                 if (camera.myCamera_type == "Perspective") {
-
                     camera.myCamera_focalLength = 0.75f;
 
                     camera.imageplane_height = 1.0f;
