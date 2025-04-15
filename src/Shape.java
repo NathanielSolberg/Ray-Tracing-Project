@@ -1,22 +1,17 @@
-public abstract class Shape extends Position {
+public abstract class Shape {
+    Float posX, posY, posZ;
 
+    String shaderType;
+    Float shaderR, shaderG, shaderB;
 
-    float t = Float.MAX_VALUE;
-    Shader shader;
+    public Shape() {
+        posX = 0.0f;
+        posY = 0.0f;
+        posZ = 0.0f;
 
-    public Shape(Position p, Shader s) {
-        this.posX = p.posX;
-        this.posY = p.posY;
-        this.posZ = p.posZ;
-
-        s.r = 0.0f;
-        s.g = 0.0f;
-        s.b = 0.0f;
-
-        this.shader = s;
-    }
-
-    public void render() {
-
+        shaderType = "Normal Shader";
+        shaderR = 0.0f;
+        shaderG = 0.0f;
+        shaderB = 0.0f;
     }
 }
