@@ -1,17 +1,14 @@
-public class Position {
+public abstract class Position {
+    
+    float posX, posY, posZ;
 
-    float posX;
-    float posY;
-    float posZ;
-
-    float direction_U_x;
-    float direction_U_y;
-    float direction_U_z;
-    float direction_V_x;
-    float direction_V_y;
-    float direction_V_z;
-    float direction_W_x;
-    float direction_W_y;
-    float direction_W_z;
-
+    float dir_U_x;
+    float dir_U_y;
+    float dir_U_z;
+    float dir_V_x;
+    float dir_V_y;
+    float dir_V_z;
+    float dir_W_x;
+    float dir_W_y;
+    float dir_W_z;
 }

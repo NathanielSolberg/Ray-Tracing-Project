@@ -1,11 +1,11 @@
-public class Light extends Position {
-
+public class Light {
+    float posX, posY, posZ;
     float colorR, colorG, colorB;
 
-    public Light(float posX, float posY, float posZ) {
-        this.posX = posX;
-        this.posY = posY;
-        this.posZ = posZ;
+    public Light(){
+        posX = 5.0f;
+        posY = 5.0f;
+        posZ = 1.0f;
 
         colorR = 1.0f;
         colorG = 1.0f;

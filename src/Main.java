@@ -7,26 +7,29 @@ import static java.lang.Math.sqrt;
 public class Main {
     public static void main(String[] args) {
 
-        //create 1 image
+        //create images here
         PNGImageData image = new PNGImageData(800, 500);
 
-        //make your lights here
-        Light light1 = new Light(0.0f, 0.0f, 0.0f);
 
-        ArrayList<Light> light = new ArrayList<>();
-        light.add(light1);
+        //set up shaders here
+        Intersection shader = new Intersection(100, 100, 100);
 
-        //make shaders here
-        Normal shader1 = new Normal(1.0f, 1.0f, 1.0f);
+        //create shapes here
+        Sphere sphere = new Sphere(0.0f, 0.0f, 0.0f, 1.0f, shader);
 
-        //make shapes here
-        Sphere sphere = new Sphere(1.0f, 0.0f, 0.0f, 0.0f, shader1);
-
+        //array list of shapes
         ArrayList<Shape> shapes = new ArrayList<>();
-        shapes.add(sphere);
+        shapes.add(sphere); //add each shape to the array list
 
-        Perspective camera = new Perspective(800, 500, image, shapes);
+        //add any cameras here
+        Perspective camera = new Perspective(image, shapes, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-        camera.takeSnapShot();
+        //take a picture with .takeSnapshot method
+        camera.takeSnapshot();
+
+        //not entirely complete but you can see above what the organization will look like
+        //lights don't really do anything right now and I still need to add in the logic for all the different shader types and maybe add some more shapes
+
+        //this could theoretically create frames for an animation of sorts if you wanted to make a loop that moves objects around and takes snapshots
     }
 }

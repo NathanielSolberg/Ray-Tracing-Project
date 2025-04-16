@@ -2,27 +2,40 @@ public class Sphere extends Shape{
 
     float radius;
 
-    public Sphere(float radius, float posX, float posY, float posZ, Shader shader) {
-        super(new Position(),shader);
+    float posX;
+    float posY;
+    float posZ;
 
-        super.posX = posX;
-        super.posY = posY;
-        super.posZ = posZ;
+    Shader shader;
+
+    public Sphere(float posX, float posY, float posZ, float radius, Shader shader){
+        super(shader);
 
         this.radius = radius;
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
+
+        this.shader = shader;
     }
 
     @Override
-    public void render() {
+    public void intersect(Ray ray, float t) {
+
+        float x = posX;
+        float y = posY;
+        float z = posZ;
+
+        this.t = t;
 
         // solve quadratic equation
 
-        float rayDir_dot_rayDir = shader.ray_DirX * shader.ray_DirX + shader.ray_DirY * shader.ray_DirY + shader.ray_DirZ * shader.ray_DirZ;
-        float cameraPos_minus_Center_X = shader.ray_PosX - posX;
-        float cameraPos_minus_Center_Y = shader.ray_PosY - posY;
-        float cameraPos_minus_Center_Z = shader.ray_PosZ - posZ;
+        float rayDir_dot_rayDir = ray.dirX * ray.dirX + ray.dirY * ray.dirY + ray.dirZ * ray.dirZ;
+        float cameraPos_minus_Center_X = ray.posX - x;
+        float cameraPos_minus_Center_Y = ray.posY - y;
+        float cameraPos_minus_Center_Z = ray.posZ - z;
 
-        float B = shader.ray_DirX * cameraPos_minus_Center_X + shader.ray_DirY * cameraPos_minus_Center_Y + shader.ray_DirZ * cameraPos_minus_Center_Z;
+        float B = ray.dirX * cameraPos_minus_Center_X + ray.dirY * cameraPos_minus_Center_Y + ray.dirZ * cameraPos_minus_Center_Z;
 
         float cameraSphere_dotProduct = cameraPos_minus_Center_X * cameraPos_minus_Center_X +
                 cameraPos_minus_Center_Y * cameraPos_minus_Center_Y +
@@ -40,23 +53,23 @@ public class Sphere extends Shape{
 
             if (closestT < t) {
                 t = closestT;
-                shader.rayHitAnObject = true;
+                ray.rayHitAnObject = true;
 
-                shader.intersect_PointX = shader.ray_PosX + t * shader.ray_DirX;
-                shader.intersect_PointY = shader.ray_PosY + t * shader.ray_DirY;
-                shader.intersect_PointZ = shader.ray_PosZ + t * shader.ray_DirZ;
+                ray.intersect_PointX = ray.posX + t * ray.dirX;
+                ray.intersect_PointY = ray.posY + t * ray.dirY;
+                ray.intersect_PointZ = ray.posZ + t * ray.dirZ;
 
-                shader.intersect_NormalX = shader.intersect_PointX - posX;
-                shader.intersect_NormalY = shader.intersect_PointY - posY;
-                shader.intersect_NormalZ = shader.intersect_PointZ - posZ;
-                float vectorLength = (float) Math.sqrt(shader.intersect_NormalX * shader.intersect_NormalX +
-                        shader.intersect_NormalY * shader.intersect_NormalY +
-                        shader.intersect_NormalZ * shader.intersect_NormalZ);
-                shader.intersect_NormalX /= vectorLength;
-                shader.intersect_NormalY /= vectorLength;
-                shader.intersect_NormalZ /= vectorLength;
+                ray.intersect_NormalX = ray.intersect_PointX - x;
+                ray.intersect_NormalY = ray.intersect_PointY - y;
+                ray.intersect_NormalZ = ray.intersect_PointZ - z;
+                float vectorLength = (float) Math.sqrt(ray.intersect_NormalX * ray.intersect_NormalX +
+                        ray.intersect_NormalY * ray.intersect_NormalY +
+                        ray.intersect_NormalZ * ray.intersect_NormalZ);
+                ray.intersect_NormalX /= vectorLength;
+                ray.intersect_NormalY /= vectorLength;
+                ray.intersect_NormalZ /= vectorLength;
             }
         }
-    }
 
+    }
 }
