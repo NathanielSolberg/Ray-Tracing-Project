@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public abstract class Camera extends Position{
 
+    PNGImageData image;
+    Ray ray = new Ray();
+    ArrayList<Shape> shapes;
+
     float focalLength;
 
     // set the default parameters for the image plan size
@@ -45,9 +49,66 @@ public abstract class Camera extends Position{
 
         aspectRatio = image.getImageWidth() / (float) image.getImageHeight();
 
+        this.image = image;
+
     }
 
     public void takeSnapshot() {
+        for (int row = 0; row < image.getImageHeight(); row++) {
+            for (int col = 0; col < image.getImageWidth(); col++) {
 
+                //replace everything here with camera specific code---
+                float t = imageplane_height / 2.0f;
+                //----------------------------------------------------
+
+                // walk over all of the object types and determine
+                // if any object is hit by the ray that we just generated
+                // if so, we'll need to know where it hit and the surface information (normal)
+                // at that point
+                ray.intersect_NormalX = 0.0f;
+                ray.intersect_NormalY = 0.0f;
+                ray.intersect_NormalZ = 0.0f;
+
+                ray.intersect_PointX = 0.0f;
+                ray.intersect_PointY = 0.0f;
+                ray.intersect_PointZ = 0.0f;
+
+                t = Float.MAX_VALUE;
+
+                for (int idx = 0; idx < shapes.size(); ++idx) {
+                    shapes.get(idx).intersect(ray, t);
+                    if(t > shapes.get(idx).getT()) {
+                        t = shapes.get(idx).getT();
+                        closest = shapes.get(idx);
+                    }
+
+                }
+
+                int red = 255;
+                int green = 255;
+                int blue = 255;
+
+                if (ray.rayHitAnObject && t > 1.0f && closest != null) {
+                    closest.shader.render();
+                    red = closest.shader.getRed();
+                    green = closest.shader.getGreen();
+                    blue = closest.shader.getBlue();
+                }
+                else {
+                    // no objects were intersected with our viewing ray so set
+                    // the pixel to the background color
+                    // something like sky-blue like
+                    red = 207;
+                    green = 236;
+                    blue = 247;
+                }
+                red = Math.clamp(red, 0, 255);
+                green = Math.clamp(green, 0, 255);
+                blue = Math.clamp(blue, 0, 255);
+
+                image.setPixel(col, (image.getImageHeight() - 1) - row, red, green, blue);
+            }
+        }
+        image.writeData("raytrace_Image.png");
     }
 }
