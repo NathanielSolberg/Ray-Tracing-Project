@@ -1,17 +1,21 @@
-public abstract class Shape {
-    Float posX, posY, posZ;
+public abstract class Shape extends Position{
 
     String shaderType;
-    Float shaderR, shaderG, shaderB;
 
-    public Shape() {
-        posX = 0.0f;
-        posY = 0.0f;
-        posZ = 0.0f;
+    Shader shader;
 
-        shaderType = "Normal Shader";
-        shaderR = 0.0f;
-        shaderG = 0.0f;
-        shaderB = 0.0f;
+    float t;
+
+    public Shape(Shader shader) {
+        this.shader = shader;
     }
+
+    public void intersect(Ray ray, float t) {
+
+    }
+
+    public float getT() {
+        return t;
+    }
+
 }
