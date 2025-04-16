@@ -1,4 +1,4 @@
-public class Position {
+public abstract class Position {
     
     float posX, posY, posZ;
 

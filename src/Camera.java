@@ -15,23 +15,33 @@ public abstract class Camera extends Position{
 
     Shape closest;
 
-    public Camera(PNGImageData image, ArrayList<Shape> shapes) {
-        focalLength = 1.0f;
-        posX = 0.0f;
-        posY = 0.0f;
-        posZ = 0.0f;
-        
-        dir_U_x = 1.0f;
-        dir_U_y = 0.0f;
-        dir_U_z = 0.0f;
-        dir_V_x = 0.0f;
-        dir_V_y = 1.0f;
-        dir_V_z = 0.0f;
-        dir_W_x = 0.0f;
-        dir_W_y = 0.0f;
-        dir_W_z = 1.0f;
+    public Camera(PNGImageData image, ArrayList<Shape> shapes,
+                  float posX,
+                  float posY,
+                  float posZ,
+                  float dir_U_x,
+                  float dir_U_y,
+                  float dir_U_z,
+                  float dir_V_x,
+                  float dir_V_y,
+                  float dir_V_z,
+                  float dir_W_x,
+                  float dir_W_y,
+                  float dir_W_z) {
 
-        myCamera_type = "Perspective";
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
+
+        this.dir_U_x = dir_U_x;
+        this.dir_U_y = dir_U_y;
+        this.dir_U_z = dir_U_z;
+        this.dir_V_x = dir_V_x;
+        this.dir_V_y = dir_V_y;
+        this.dir_V_z = dir_V_z;
+        this.dir_W_x = dir_W_x;
+        this.dir_W_y = dir_W_y;
+        this.dir_W_z = dir_W_z;
 
         aspectRatio = image.getImageWidth() / (float) image.getImageHeight();
 

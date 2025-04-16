@@ -6,10 +6,45 @@ public class Perspective extends Camera{
     Ray ray = new Ray();
     ArrayList<Shape> shapes = new ArrayList<>();
 
-    public Perspective(PNGImageData image, ArrayList<Shape> shapes) {
-        super(image, shapes);
+    public Perspective(PNGImageData image, ArrayList<Shape> shapes,
+                  float posX,
+                  float posY,
+                  float posZ,
+                  float dir_U_x,
+                  float dir_U_y,
+                  float dir_U_z,
+                  float dir_V_x,
+                  float dir_V_y,
+                  float dir_V_z,
+                  float dir_W_x,
+                  float dir_W_y,
+                  float dir_W_z) {
+        super(image, shapes, posX, posY, posZ,
+            dir_U_x,
+            dir_U_y,
+            dir_U_z,
+            dir_V_x,
+            dir_V_y,
+            dir_V_z,
+            dir_W_x,
+            dir_W_y,
+            dir_W_z);
         this.image = image;
         this.shapes = shapes;
+
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
+
+        this.dir_U_x = dir_U_x;
+        this.dir_U_y = dir_U_y;
+        this.dir_U_z = dir_U_z;
+        this.dir_V_x = dir_V_x;
+        this.dir_V_y = dir_V_y;
+        this.dir_V_z = dir_V_z;
+        this.dir_W_x = dir_W_x;
+        this.dir_W_y = dir_W_y;
+        this.dir_W_z = dir_W_z;
     }
     
     @Override
@@ -68,7 +103,7 @@ public class Perspective extends Camera{
                 int green = 255;
                 int blue = 255;
 
-                if (ray.rayHitAnObject && t > 1.0f) {
+                if (ray.rayHitAnObject && t > 1.0f && closest != null) {
                     closest.shader.render();
                     red = closest.shader.getRed();
                     green = closest.shader.getGreen();
