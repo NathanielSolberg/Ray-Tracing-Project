@@ -20,13 +20,11 @@ public class Sphere extends Shape{
     }
 
     @Override
-    public void intersect(Ray ray, float t) {
+    public void intersect(Ray ray) {
 
         float x = posX;
         float y = posY;
         float z = posZ;
-
-        this.t = t;
 
         // solve quadratic equation
 
@@ -37,12 +35,10 @@ public class Sphere extends Shape{
 
         float B = ray.dirX * cameraPos_minus_Center_X + ray.dirY * cameraPos_minus_Center_Y + ray.dirZ * cameraPos_minus_Center_Z;
 
-        float cameraSphere_dotProduct = cameraPos_minus_Center_X * cameraPos_minus_Center_X +
-                cameraPos_minus_Center_Y * cameraPos_minus_Center_Y +
-                cameraPos_minus_Center_Z * cameraPos_minus_Center_Z;
+        float cameraSphere_dotProduct = cameraPos_minus_Center_X * cameraPos_minus_Center_X + cameraPos_minus_Center_Y * cameraPos_minus_Center_Y + cameraPos_minus_Center_Z * cameraPos_minus_Center_Z;
 
         float discriminant = B * B - rayDir_dot_rayDir * (cameraSphere_dotProduct - radius * radius);
-        if (discriminant >= 0.0f) {
+        if (discriminant >= 0.0f) {//idk why but discriminant is always negative which is preventing the ray from hitting the object
             float sqrtDiscr = (float) Math.sqrt(discriminant);
             float t1 = (-B + sqrtDiscr) / rayDir_dot_rayDir;
             float t2 = (-B - sqrtDiscr) / rayDir_dot_rayDir;
@@ -51,8 +47,9 @@ public class Sphere extends Shape{
             float maxT = Math.max(t1, t2);
             float closestT = (minT >= 1.0f) ? minT : (maxT >= 1.0f ? maxT : Float.MAX_VALUE);
 
-            if (closestT < t) {
-                t = closestT;
+            if (closestT < ray.t) {
+                //System.out.println("test");
+                ray.t = closestT;
                 ray.rayHitAnObject = true;
 
                 ray.intersect_PointX = ray.posX + t * ray.dirX;

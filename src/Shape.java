@@ -10,7 +10,7 @@ public abstract class Shape extends Position{
         this.shader = shader;
     }
 
-    public void intersect(Ray ray, float t) {
+    public void intersect(Ray ray) {
 
     }
 

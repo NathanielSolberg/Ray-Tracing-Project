@@ -84,12 +84,12 @@ public class Perspective extends Camera{
                 ray.intersect_PointY = 0.0f;
                 ray.intersect_PointZ = 0.0f;
 
-                t = Float.MAX_VALUE;
-
                 for (int idx = 0; idx < shapes.size(); ++idx) {
-                    shapes.get(idx).intersect(ray, t);
+                    ray.t = Float.MAX_VALUE;
+                    shapes.get(idx).intersect(ray);
                     if(t > shapes.get(idx).getT()) {
-                        t = shapes.get(idx).getT();
+                        //System.out.println("test");
+                        t = ray.t;
                         closest = shapes.get(idx);
                     }
 
@@ -98,8 +98,8 @@ public class Perspective extends Camera{
                 int red = 255;
                 int green = 255;
                 int blue = 255;
-
-                if (ray.rayHitAnObject && t > 1.0f && closest != null) {
+                //System.out.println(t);
+                if (ray.rayHitAnObject && t > 1.0f) {
                     closest.shader.render();
                     red = closest.shader.getRed();
                     green = closest.shader.getGreen();
@@ -113,6 +113,8 @@ public class Perspective extends Camera{
                     green = 236;
                     blue = 247;
                 }
+
+                t = Float.MAX_VALUE;
                 red = Math.clamp(red, 0, 255);
                 green = Math.clamp(green, 0, 255);
                 blue = Math.clamp(blue, 0, 255);

@@ -12,4 +12,6 @@ public class Ray extends Position{
     float intersect_PointZ = 0.0f;
 
     boolean rayHitAnObject = false;
+
+    float t = Float.MAX_VALUE;
 }

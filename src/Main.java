@@ -7,6 +7,8 @@ import static java.lang.Math.sqrt;
 public class Main {
     public static void main(String[] args) {
 
+        //I have made changes after the due date feel free to grade based on the version pushed before
+
         //create images here
         PNGImageData image = new PNGImageData(800, 500);
 
@@ -22,7 +24,7 @@ public class Main {
         shapes.add(sphere); //add each shape to the array list
 
         //add any cameras here
-        Perspective camera = new Perspective(image, shapes, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+        Perspective camera = new Perspective(image, shapes, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
         //take a picture with .takeSnapshot method
         camera.takeSnapshot();

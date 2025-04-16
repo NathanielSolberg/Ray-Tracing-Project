@@ -76,7 +76,7 @@ public abstract class Camera extends Position{
                 t = Float.MAX_VALUE;
 
                 for (int idx = 0; idx < shapes.size(); ++idx) {
-                    shapes.get(idx).intersect(ray, t);
+                    shapes.get(idx).intersect(ray);
                     if(t > shapes.get(idx).getT()) {
                         t = shapes.get(idx).getT();
                         closest = shapes.get(idx);
