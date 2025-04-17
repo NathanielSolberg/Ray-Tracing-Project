@@ -14,6 +14,7 @@ public abstract class Shape extends Position{
 
     }
 
+    public void resetT() { t = Float.MAX_VALUE; }
     public float getT() {
         return t;
     }

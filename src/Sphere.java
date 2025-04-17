@@ -6,8 +6,6 @@ public class Sphere extends Shape{
     float posY;
     float posZ;
 
-    Shader shader;
-
     public Sphere(float posX, float posY, float posZ, float radius, Shader shader){
         super(shader);
 
@@ -48,6 +46,10 @@ public class Sphere extends Shape{
             float closestT = (minT >= 1.0f) ? minT : (maxT >= 1.0f ? maxT : Float.MAX_VALUE);
 
             if (closestT < ray.t) {
+
+                // never set the shape t to be the closestT so that when getT is called it will be good
+                t = closestT;
+
                 //System.out.println("test");
                 ray.t = closestT;
                 ray.rayHitAnObject = true;

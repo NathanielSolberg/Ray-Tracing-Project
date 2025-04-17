@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import static java.lang.Math.floor;
+
 public class Perspective extends Camera{
 
     public Perspective(PNGImageData image, ArrayList<Shape> shapes,
@@ -28,10 +30,12 @@ public class Perspective extends Camera{
         this.image = image;
         this.shapes = shapes;
 
+        // Why repeat what the super class is already doing for you?
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
 
+        // Why repeat what the super class is already doing for you?
         this.dir_U_x = dir_U_x;
         this.dir_U_y = dir_U_y;
         this.dir_U_z = dir_U_z;
@@ -84,22 +88,36 @@ public class Perspective extends Camera{
                 ray.intersect_PointY = 0.0f;
                 ray.intersect_PointZ = 0.0f;
 
+                // this is a check for each ray across
+                // all shapes
+                ray.t = Float.MAX_VALUE;
+
+                // reset this variable...
+                ray.rayHitAnObject = false;
+
+                // the "t" you have below is confused with the "t" in the camera (l, r, b, t).
+
+                float currentClosest_t = Float.MAX_VALUE;
+                closest = null;
+
+
                 for (int idx = 0; idx < shapes.size(); ++idx) {
-                    ray.t = Float.MAX_VALUE;
                     shapes.get(idx).intersect(ray);
-                    if(t > shapes.get(idx).getT()) {
+                    if(currentClosest_t > shapes.get(idx).getT()) {
                         //System.out.println("test");
-                        t = ray.t;
+                        currentClosest_t = ray.t;
                         closest = shapes.get(idx);
                     }
 
                 }
 
+                // t = closest.getT();
+
                 int red = 255;
                 int green = 255;
                 int blue = 255;
                 //System.out.println(t);
-                if (ray.rayHitAnObject && t > 1.0f) {
+                if (ray.rayHitAnObject && currentClosest_t > 1.0f) {
                     closest.shader.render();
                     red = closest.shader.getRed();
                     green = closest.shader.getGreen();
@@ -114,7 +132,6 @@ public class Perspective extends Camera{
                     blue = 247;
                 }
 
-                t = Float.MAX_VALUE;
                 red = Math.clamp(red, 0, 255);
                 green = Math.clamp(green, 0, 255);
                 blue = Math.clamp(blue, 0, 255);

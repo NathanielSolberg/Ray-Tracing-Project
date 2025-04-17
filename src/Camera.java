@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+// I don't think Camera extending Position is a good design choice
+// why would a camera "be-a" Position??
+
 public abstract class Camera extends Position{
 
     PNGImageData image;
@@ -53,12 +56,14 @@ public abstract class Camera extends Position{
 
     }
 
+    // this function should really be abstract since we don't know
+    // "how" a generic camera might create a ray
     public void takeSnapshot() {
         for (int row = 0; row < image.getImageHeight(); row++) {
             for (int col = 0; col < image.getImageWidth(); col++) {
-
+                System.out.println("Shouldn't be calling this...");
                 //replace everything here with camera specific code---
-                float t = imageplane_height / 2.0f;
+                float t = Float.MAX_VALUE;
                 //----------------------------------------------------
 
                 // walk over all of the object types and determine
@@ -73,7 +78,11 @@ public abstract class Camera extends Position{
                 ray.intersect_PointY = 0.0f;
                 ray.intersect_PointZ = 0.0f;
 
-                t = Float.MAX_VALUE;
+                // before we check all shapes, we need to make sure the
+                // internal t value for each shape is reset
+                for (Shape s : shapes) {
+                    s.resetT();
+                }
 
                 for (int idx = 0; idx < shapes.size(); ++idx) {
                     shapes.get(idx).intersect(ray);

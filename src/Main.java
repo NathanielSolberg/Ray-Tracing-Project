@@ -14,16 +14,17 @@ public class Main {
 
 
         //set up shaders here
-        Intersection shader = new Intersection(100, 100, 100);
+        Intersection shader = new Intersection(100, 0, 100);
 
         //create shapes here
-        Sphere sphere = new Sphere(0.0f, 0.0f, 0.0f, 1.0f, shader);
+        Sphere sphere = new Sphere(0.0f, 0.0f, -10.0f, 4.0f, shader);
 
         //array list of shapes
         ArrayList<Shape> shapes = new ArrayList<>();
         shapes.add(sphere); //add each shape to the array list
 
         //add any cameras here
+        // not a very fun constructor to use... -Pete
         Perspective camera = new Perspective(image, shapes, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
         //take a picture with .takeSnapshot method
